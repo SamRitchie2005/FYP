@@ -11,16 +11,17 @@ public class GridTest1 : MonoBehaviour
     [SerializeField] int seed;
     TilemapCollider2D tCollider;
     [SerializeField] int automatonLoops;
+    [SerializeField] Maze_CA maze;
     int neighbourLive;
     int[,] mapArray;
 
     private void Awake()
     {
-        mapArray = new int[100,100];
+        mapArray = new int[250,250];
         tCollider = tilemapWall.GetComponent<TilemapCollider2D>();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 250; i++)
         {
-            for (int j = 0; j < 100; j++)
+            for (int j = 0; j < 250; j++)
             {
                 int flip = (int)Mathf.Round(Mathf.PerlinNoise(seed+i+0.1f, seed+j+0.1f));
                // pos = new Vector3Int(i, j, 0);
@@ -43,11 +44,14 @@ public class GridTest1 : MonoBehaviour
      
             }
         }
-        for (int k = 0; k < automatonLoops; k++)
-        {
-           CellularAutomaton();
-        }
+        // for (int k = 0; k < automatonLoops; k++)
+        // {
+        //    CellularAutomaton();
+        // }
+        maze.MazeAwake(seed);
+        DrawMaze();
         DrawMap();
+        
         tCollider.enabled = false;
         tCollider.enabled = true;
 
@@ -146,12 +150,12 @@ public class GridTest1 : MonoBehaviour
 
     void DrawMap()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 250; i++)
         {
-            for (int j = 0; j < 100; j++)
+            for (int j = 0; j < 250; j++)
             {
                 pos = new Vector3Int(i, j, 0);
-                if (mapArray[i,j] == 0)
+                if (mapArray[i, j] == 0)
                 {
                     tilemapFloor.SetTile(pos, tileFloor);
                     
@@ -161,6 +165,17 @@ public class GridTest1 : MonoBehaviour
                      tilemapWall.SetTile(pos, tileWall);
                     
                 }
+            }
+        }
+    }
+
+    void DrawMaze()
+    {
+        for (int i = 0; i < 102; i++)
+        {
+            for (int j = 0; j < 102; j++)
+            {
+                mapArray[i,j] = maze.mapFinal[i,j];
             }
         }
     }

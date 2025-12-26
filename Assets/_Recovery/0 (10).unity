@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Maze_CA
   mSeed: 0
-  cycles: 3000
+  cycles: 20
 --- !u!4 &458327063
 Transform:
   m_ObjectHideFlags: 0

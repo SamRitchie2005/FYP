@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Maze_CA
   mSeed: 0
-  cycles: 3000
+  cycles: 2147483647
 --- !u!4 &458327063
 Transform:
   m_ObjectHideFlags: 0
@@ -1021,7 +1021,7 @@ MonoBehaviour:
   tilemapWall: {fileID: 142115698}
   tileFloor: {fileID: 11400000, guid: b792a8ba917f6f44a9ea98399e9745a9, type: 2}
   tileWall: {fileID: 11400000, guid: 930814d827046d944bf5f73788fb007a, type: 2}
-  seed: 10973
+  seed: 10793
   automatonLoops: 30
   maze: {fileID: 458327062}
 --- !u!4 &1653943452
