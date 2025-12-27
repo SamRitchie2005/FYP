@@ -15,8 +15,8 @@ public class Maze_CA : MonoBehaviour
     public Cell[,] map;
     public int[,] mapFinal;
     [SerializeField] int cycles;
-    
 
+    int GlobalSeedCount;
    
     public void MazeAwake(int seed)
     {
@@ -42,7 +42,7 @@ public class Maze_CA : MonoBehaviour
         }
         PickSeed();
         for (int i = 0; i < cycles; i++)
-        { Cycle(); }
+        { GlobalSeedCount=Cycle(); }
         for (int i = 0; i < 51; i = i + 1)
         {
             for(int j=0; j < 51; j = j + 1)
@@ -73,8 +73,9 @@ public class Maze_CA : MonoBehaviour
             }
             }
 
-    void Cycle()
+    int Cycle()
     {
+        int seedCount = 0;
         for (int i = 1; i < 50; i++)
         {
             for (int j = 1; j < 50; j++)
@@ -104,6 +105,7 @@ public class Maze_CA : MonoBehaviour
                 }
                 if (map[i, j].state == 1)
                 {
+                    seedCount++;
                     int neighbourCount = 0;
                     if (map[i, j + 1].state == 0) { map[i, j].neighbours[0] = 0; neighbourCount++; }
                     else { map[i, j].neighbours[0] = 4; }
@@ -116,6 +118,19 @@ public class Maze_CA : MonoBehaviour
 
                     bool dirPickBool = false;
                     int dirpick;
+
+
+                    if (Random.Range(0, 100) > 100)
+                    {
+                        if (map[i, j].neighbours[(map[i, j].connectDir + 2) % 2] != 4)
+                        {
+                            map[i, j].inviteDir = map[i, j].neighbours[(map[i, j].connectDir + 2) % 2];
+                            dirPickBool = true;
+                        }
+                    }
+
+
+
                     while (dirPickBool == false)
                     {
                         if (neighbourCount == 0) { dirPickBool = true; }
@@ -129,14 +144,21 @@ public class Maze_CA : MonoBehaviour
 
                         }
                     }
-                    map[i, j].state = 2;
+                    if (neighbourCount == 0)
+                    {
+                        map[i, j].state = 3;
+                    }
+                    else
+                    {
+                        map[i, j].state = 2;
+                    }
                 }
                 if (map[i, j].state == 2)
                 {
                     if (map[i, j].inviteDir == 0) { map[i, j + 1].state = 1; map[i, j + 1].connectDir = 2; }
-                    if (map[i, j].inviteDir == 1) { map[i+1, j].state = 1; map[i+1, j].connectDir = 3; }
-                    if (map[i, j].inviteDir == 2) { map[i, j-1].state = 1; map[i, j - 1].connectDir = 0; }
-                    if (map[i, j].inviteDir == 3) { map[i-1, j].state = 1; map[i-1, j].connectDir = 1; }
+                    if (map[i, j].inviteDir == 1) { map[i + 1, j].state = 1; map[i + 1, j].connectDir = 3; }
+                    if (map[i, j].inviteDir == 2) { map[i, j - 1].state = 1; map[i, j - 1].connectDir = 0; }
+                    if (map[i, j].inviteDir == 3) { map[i - 1, j].state = 1; map[i - 1, j].connectDir = 1; }
 
 
 
@@ -148,14 +170,42 @@ public class Maze_CA : MonoBehaviour
                 }
                 if (map[i, j].state == 3)
                 {
+                    //int seedCount = 0;
+                    bool isValid = false;
+                    //for (int k = 1; k < 50; k++)
+                    //{
+                    //    for (int l = 1; l < 50; l++)
+                    //    {
+                    //        if (map[k, l].state == 1)
+                    //        {
+                    //            seedCount++;
+                    //        }
+
+                    //    }
+
+                    //}
+                    // Debug.Log(seedCount);
+                    //Debug.Log(GlobalSeedCount);
+                    if(seedCount ==0)
+                    {
+                        for(int k = 0; k < 4; k++)
+                        {
+                            if (map[i, j].neighbours[k] != 4)
+                            {
+                                isValid = true;
+                            }
+                        }
+                       if (isValid&&(Random.Range(0,100)<=5))
+                        {
+                            map[i,j].state = 1;
+                       }
+                     }
 
                 }
-                
             }
-            
-        }
-        
-        }
+            }
+        return seedCount;
+    }
 
     void PickSeed()
     {
