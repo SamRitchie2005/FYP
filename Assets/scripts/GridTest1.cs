@@ -23,7 +23,7 @@ public class GridTest1 : MonoBehaviour
         {
             for (int j = 0; j < 250; j++)
             {
-                int flip = (int)Mathf.Round(Mathf.PerlinNoise(seed+i+0.1f, seed+j+0.1f));
+                int flip = (int)Mathf.Round(Mathf.PerlinNoise(seed+i/10f+0.1f, seed+j/10f+0.1f));
                // pos = new Vector3Int(i, j, 0);
 
                 // int flip = Random.Range(0, 2);
@@ -45,8 +45,8 @@ public class GridTest1 : MonoBehaviour
             }
         }
         // for (int k = 0; k < automatonLoops; k++)
-        // {
-        //    CellularAutomaton();
+         //{
+           // CellularAutomaton();
         // }
         maze.MazeAwake(seed);
         DrawMaze();
