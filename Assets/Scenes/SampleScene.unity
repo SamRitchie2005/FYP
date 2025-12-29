@@ -850,7 +850,7 @@ Transform:
   m_GameObject: {fileID: 1436118678}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 60.2, y: 50, z: 0}
+  m_LocalPosition: {x: 100, y: 50, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1021,6 +1021,9 @@ MonoBehaviour:
   tilemapWall: {fileID: 142115698}
   tileFloor: {fileID: 11400000, guid: b792a8ba917f6f44a9ea98399e9745a9, type: 2}
   tileWall: {fileID: 11400000, guid: 930814d827046d944bf5f73788fb007a, type: 2}
+  tileWater: {fileID: 11400000, guid: 8a1bfe850a531404c8e6cac20075205b, type: 2}
+  tileWaterShallow: {fileID: 11400000, guid: f48147354728869498416458da277003, type: 2}
+  tileSand: {fileID: 11400000, guid: 5d803209c1e58af4a8103666adfc6428, type: 2}
   seed: 6932
   automatonLoops: 30
   maze: {fileID: 458327062}

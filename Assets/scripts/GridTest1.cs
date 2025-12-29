@@ -8,6 +8,9 @@ public class GridTest1 : MonoBehaviour
     Vector3Int pos;
     [SerializeField] Tile tileFloor;
     [SerializeField] Tile tileWall;
+    [SerializeField] Tile tileWater;
+    [SerializeField] Tile tileWaterShallow;
+    [SerializeField] Tile tileSand;
     [SerializeField] int seed;
     TilemapCollider2D tCollider;
     [SerializeField] int automatonLoops;
@@ -17,31 +20,43 @@ public class GridTest1 : MonoBehaviour
 
     private void Awake()
     {
-        mapArray = new int[250,250];
+        mapArray = new int[300,300];
         tCollider = tilemapWall.GetComponent<TilemapCollider2D>();
-        for (int i = 0; i < 250; i++)
+        for (int i = 0; i < 300; i++)
         {
-            for (int j = 0; j < 250; j++)
+            for (int j = 0; j < 300; j++)
             {
-                int flip = (int)Mathf.Round(Mathf.PerlinNoise(seed+i/10f+0.1f, seed+j/10f+0.1f));
+                float flip = Mathf.PerlinNoise(seed+i/10f+0.1f, seed+j/10f+0.1f);
                // pos = new Vector3Int(i, j, 0);
 
                 // int flip = Random.Range(0, 2);
-                if (flip == 0)
+                if (flip > 0.4f && flip <= 0.7f)
                 {
                     //tilemapFloor.SetTile(pos, tileFloor);
                     mapArray[i,j] = 0;
                 }
-                else if (flip == 1)
+                else if (flip > 0.7f)
                 {
                     //tilemapWall.SetTile(pos, tileWall);
                     mapArray[i, j] = 1;
+                }
+                else if(/*flip >= 0f &&*/ flip <= 0.2f)
+                {
+                    mapArray[i, j] = 2;
+                }
+                else if(flip > 0.2f &&flip <= 0.3f)
+                {
+                    mapArray[i, j] = 3;
+                }
+                else if (flip > 0.3f && flip <= 0.4f)
+                {
+                    mapArray[i, j] = 4;
                 }
                 //for (int k = 0; k < automatonLoops; k++)
                 //{
                 //   CellularAutomaton();
                 //}
-     
+
             }
         }
         // for (int k = 0; k < automatonLoops; k++)
@@ -150,20 +165,32 @@ public class GridTest1 : MonoBehaviour
 
     void DrawMap()
     {
-        for (int i = 0; i < 250; i++)
+        for (int i = 0; i < 300; i++)
         {
-            for (int j = 0; j < 250; j++)
+            for (int j = 0; j < 300; j++)
             {
                 pos = new Vector3Int(i, j, 0);
                 if (mapArray[i, j] == 0)
                 {
                     tilemapFloor.SetTile(pos, tileFloor);
-                    
+
                 }
                 else if (mapArray[i, j] == 1)
                 {
-                     tilemapWall.SetTile(pos, tileWall);
-                    
+                    tilemapWall.SetTile(pos, tileWall);
+
+                }
+                else if (mapArray[i, j] == 2)
+                {
+                    tilemapWall.SetTile(pos, tileWater);
+                }
+                else if (mapArray[i, j] == 3)
+                {
+                    tilemapFloor.SetTile(pos, tileWaterShallow);
+                }
+                else if (mapArray[i, j] == 4)
+                {
+                    tilemapFloor.SetTile(pos, tileSand);
                 }
             }
         }
@@ -175,7 +202,7 @@ public class GridTest1 : MonoBehaviour
         {
             for (int j = 0; j < 102; j++)
             {
-                mapArray[i,j] = maze.mapFinal[i,j];
+                mapArray[i+99,j+99] = maze.mapFinal[i,j];
             }
         }
     }
