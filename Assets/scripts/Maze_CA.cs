@@ -70,8 +70,15 @@ public class Maze_CA : MonoBehaviour
                     mapFinal[i,j] = 0;
                 }
             }
+        }
+        for(int i = 46;i <56; i++)
+        {
+            for (int j = 46; j < 56; j++)
+            {
+                mapFinal[i, j] = 0;
             }
-            }
+        }
+    }
 
     int Cycle()
     {

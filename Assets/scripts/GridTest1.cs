@@ -1,6 +1,13 @@
 using TreeEditor;
+//using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Tilemaps;
+using NavMeshPlus.Components;
+using NavMeshPlus.Extensions;
+using UnityEngine.UI;
+
+
 public class GridTest1 : MonoBehaviour
 {
     [SerializeField] Tilemap tilemapFloor;
@@ -12,6 +19,7 @@ public class GridTest1 : MonoBehaviour
     [SerializeField] Tile tileWaterShallow;
     [SerializeField] Tile tileSand;
     [SerializeField] int seed;
+    [SerializeField] NavMeshSurface surface;
     TilemapCollider2D tCollider;
     [SerializeField] int automatonLoops;
     [SerializeField] Maze_CA maze;
@@ -70,6 +78,12 @@ public class GridTest1 : MonoBehaviour
         tCollider.enabled = false;
         tCollider.enabled = true;
 
+       // baketest();
+    }
+
+    void Start()
+    {
+        surface.BuildNavMesh();
     }
     void CellularAutomaton()
     {
