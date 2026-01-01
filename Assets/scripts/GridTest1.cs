@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using NavMeshPlus.Components;
 using NavMeshPlus.Extensions;
 using UnityEngine.UI;
+using Unity.Mathematics;
 
 
 public class GridTest1 : MonoBehaviour
@@ -19,7 +20,9 @@ public class GridTest1 : MonoBehaviour
     [SerializeField] Tile tileWaterShallow;
     [SerializeField] Tile tileSand;
     [SerializeField] int seed;
+    [SerializeField] GameObject enemy;
     [SerializeField] NavMeshSurface surface;
+    [SerializeField] int enemyAmount;
     TilemapCollider2D tCollider;
     [SerializeField] int automatonLoops;
     [SerializeField] Maze_CA maze;
@@ -77,6 +80,22 @@ public class GridTest1 : MonoBehaviour
         
         tCollider.enabled = false;
         tCollider.enabled = true;
+        UnityEngine.Random.InitState(seed);
+        while(enemyAmount>0)
+        {
+            
+            int posx = UnityEngine.Random.Range(0, 300);
+            int posy = UnityEngine.Random.Range(0, 300);
+            int targetCell = mapArray[posx,posy];
+            if((targetCell==0|| targetCell == 3 || targetCell == 4)&&!(posx>=99&&posx<=201&& posy >= 99 && posy <= 201))
+            {
+                Vector3Int mapPos = new Vector3Int(posx, posy);
+                Vector3 v = tilemapFloor.CellToWorld(mapPos);
+                quaternion c = new quaternion(0,0,0,0);
+                Instantiate(enemy, v,c);
+                enemyAmount--;
+            }
+        }
 
        // baketest();
     }
