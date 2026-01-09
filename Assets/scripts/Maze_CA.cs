@@ -89,26 +89,7 @@ public class Maze_CA : MonoBehaviour
             {
                 if (map[i, j].state == 0)
                 {
-                    //if (map[i, j+1].state == 2 && map[i, j + 1].inviteDir == 2)
-                    //{
-                    //    map[i, j].connectDir = 0;
-                    //    map[i,j].state = 1;
-                    //}
-                    //if (map[i+1, j].state == 2 && map[i+1, j].inviteDir == 3)
-                    //{
-                    //    map[i, j].connectDir = 1;
-                    //    map[i, j].state = 1;
-                    //}
-                    //if (map[i, j - 1].state == 2 && map[i, j - 1].inviteDir == 0)
-                    //{
-                    //    map[i, j].connectDir = 2;
-                    //    map[i, j].state = 1;
-                    //}
-                    //if (map[i-1, j].state == 2 && map[i-1, j].inviteDir == 1)
-                    //{
-                    //    map[i, j].connectDir = 3;
-                    //    map[i, j].state = 1;
-                    //}
+                    
                 }
                 if (map[i, j].state == 1)
                 {
@@ -177,22 +158,9 @@ public class Maze_CA : MonoBehaviour
                 }
                 if (map[i, j].state == 3)
                 {
-                    //int seedCount = 0;
+ 
                     bool isValid = false;
-                    //for (int k = 1; k < 50; k++)
-                    //{
-                    //    for (int l = 1; l < 50; l++)
-                    //    {
-                    //        if (map[k, l].state == 1)
-                    //        {
-                    //            seedCount++;
-                    //        }
 
-                    //    }
-
-                    //}
-                    // Debug.Log(seedCount);
-                    //Debug.Log(GlobalSeedCount);
                     if(seedCount ==0)
                     {
                         for(int k = 0; k < 4; k++)
@@ -216,8 +184,8 @@ public class Maze_CA : MonoBehaviour
 
     void PickSeed()
     {
-        //Random.InitState(mSeed);
-        //Cell seedTest = map[Random.Range(0, 51), Random.Range(0, 51)];
+        Random.InitState(mSeed);
+      
         int posX = Random.Range(0, 52);
         int posY = Random.Range(0, 52);
         if (map[posX, posY].state == 0)

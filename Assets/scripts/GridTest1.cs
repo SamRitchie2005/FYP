@@ -26,6 +26,7 @@ public class GridTest1 : MonoBehaviour
     TilemapCollider2D tCollider;
     [SerializeField] int automatonLoops;
     [SerializeField] Maze_CA maze;
+    [SerializeField] DungeonGen dungeon;
     int neighbourLive;
     int[,] mapArray;
 
@@ -75,7 +76,9 @@ public class GridTest1 : MonoBehaviour
            // CellularAutomaton();
         // }
         maze.MazeAwake(seed);
+        dungeon.DungeonAwake(seed);
         DrawMaze();
+        DrawDungeon();
         DrawMap();
         
         tCollider.enabled = false;
@@ -239,4 +242,19 @@ public class GridTest1 : MonoBehaviour
             }
         }
     }
+    void DrawDungeon()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            for (int j = 0; j < 100; j++)
+            {
+                if (dungeon.mapFinal[i, j] != 999)
+                {
+                    mapArray[i, j] = dungeon.mapFinal[i, j];
+                }
+            }
+        }
+    }
+
+
 }
