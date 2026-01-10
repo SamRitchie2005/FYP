@@ -17,11 +17,20 @@ public class DungeonGen : MonoBehaviour
     [SerializeField] int cycles;
     [SerializeField] int roomNumber;
 
+    int[,] interior1;
+    int[,] interior2;
+    int[,] interior3;
+    int[,] interior4;
+    int[,] interior5;
+    int[,] interior6;
+
+
     int GlobalSeedCount;
 
     public void DungeonAwake(int seed)
     {
         mSeed = seed;
+        InitInteriors();
         Random.InitState(mSeed);
         map = new Cell[10, 10];
         mapFinal = new int[100, 100];
@@ -45,6 +54,7 @@ public class DungeonGen : MonoBehaviour
        // PickSeed();
         for (int i = 0; i < cycles; i++)
         { GlobalSeedCount = Cycle(); }
+        Debug.Log(GlobalSeedCount);
         for (int i = 0; i < 10; i = i + 1)
         {
             for (int j = 0; j < 10; j = j + 1)
@@ -55,6 +65,7 @@ public class DungeonGen : MonoBehaviour
                 }
                 if (map[i, j].state == 3)
                 {
+                    int roomPick = Random.Range(1, 7);
                     for (int k = 0; k < 10; k = k + 1)
                     {
                         for (int l = 0; l < 10; l = l + 1)
@@ -66,7 +77,30 @@ public class DungeonGen : MonoBehaviour
                     {
                         for (int l = 1; l < 9; l = l + 1)
                         {
-                            mapFinal[(10 * i) + k, (10 * j) + l] = 0;
+                            if (roomPick == 1)
+                            {
+                                mapFinal[(10 * i) + k, (10 * j) + l] = interior1[k - 1, l - 1];
+                            }
+                            if (roomPick == 2)
+                            {
+                                mapFinal[(10 * i) + k, (10 * j) + l] = interior2[k - 1, l - 1];
+                            }
+                            if (roomPick == 3)
+                            {
+                                mapFinal[(10 * i) + k, (10 * j) + l] = interior3[k - 1, l - 1];
+                            }
+                            if (roomPick == 4)
+                            {
+                                mapFinal[(10 * i) + k, (10 * j) + l] = interior4[k - 1, l - 1];
+                            }
+                            if (roomPick == 5)
+                            {
+                                mapFinal[(10 * i) + k, (10 * j) + l] = interior5[k - 1, l - 1];
+                            }
+                            if (roomPick == 6)
+                            {
+                                mapFinal[(10 * i) + k, (10 * j) + l] = interior6[k - 1, l - 1];
+                            }
                         }
                     }
                     //if (map[i, j].connectDir == 0|| map[i, j].inviteDir == 0)
@@ -109,31 +143,90 @@ public class DungeonGen : MonoBehaviour
                     {
                         mapFinal[(10 * i) + 4, (10 * j) + 9] = 0;
                         mapFinal[(10 * i) + 5, (10 * j) + 9] = 0;
-                        mapFinal[(10 * i) + 4, (10 * j) + 10] = 0;
-                        mapFinal[(10 * i) + 5, (10 * j) + 10] = 0;
+                        if (j < 9)
+                        {
+                            mapFinal[(10 * i) + 4, (10 * j) + 10] = 0;
+                            mapFinal[(10 * i) + 5, (10 * j) + 10] = 0;
+                        }
                     }
                     if (map[i, j].connectDir == 1)
                     {
                         mapFinal[(10 * i) + 9, (10 * j) + 4] = 0;
                         mapFinal[(10 * i) + 9, (10 * j) + 5] = 0;
-                        mapFinal[(10 * i) + 10, (10 * j) + 4] = 0;
-                        mapFinal[(10 * i) + 10, (10 * j) + 5] = 0;
+                        if (i < 9)
+                        {
+                            mapFinal[(10 * i) + 10, (10 * j) + 4] = 0;
+                            mapFinal[(10 * i) + 10, (10 * j) + 5] = 0;
+                        }
                     }
                     if (map[i, j].connectDir == 2)
                     {
                         mapFinal[(10 * i) + 4, (10 * j)] = 0;
                         mapFinal[(10 * i) + 5, (10 * j)] = 0;
-                        mapFinal[(10 * i) + 4, (10 * j)-1] = 0;
-                        mapFinal[(10 * i) + 5, (10 * j)-1] = 0; ;
+                        if (j > 0)
+                        {
+                            mapFinal[(10 * i) + 4, (10 * j) - 1] = 0;
+                            mapFinal[(10 * i) + 5, (10 * j) - 1] = 0;
+                        }
                     }
                     if (map[i, j].connectDir == 3)
                     {
                         mapFinal[(10 * i), (10 * j) + 4] = 0;
                         mapFinal[(10 * i), (10 * j) + 5] = 0;
-                        mapFinal[(10 * i)-1, (10 * j) + 4] = 0;
-                        mapFinal[(10 * i)-1, (10 * j) + 5] = 0;
+                        if (i > 0)
+                        {
+                            mapFinal[(10 * i) - 1, (10 * j) + 4] = 0;
+                            mapFinal[(10 * i) - 1, (10 * j) + 5] = 0;
+                        }
                     }
                 }
+                if (Random.Range(0, 100) <= 45)
+                {
+                    if (Random.Range(0, 100) <= 25)
+                    {
+                        mapFinal[(10 * i) + 4, (10 * j) + 9] = 0;
+                        mapFinal[(10 * i) + 5, (10 * j) + 9] = 0;
+                        if (j < 9)
+                        {
+                            mapFinal[(10 * i) + 4, (10 * j) + 10] = 0;
+                            mapFinal[(10 * i) + 5, (10 * j) + 10] = 0;
+                        }
+                    }
+                    if (Random.Range(0, 100) <= 25)
+                    {
+                        mapFinal[(10 * i) + 9, (10 * j) + 4] = 0;
+                        mapFinal[(10 * i) + 9, (10 * j) + 5] = 0;
+                        if (i < 9)
+                        {
+                            mapFinal[(10 * i) + 10, (10 * j) + 4] = 0;
+                            mapFinal[(10 * i) + 10, (10 * j) + 5] = 0;
+                        }
+                    }
+                    if (Random.Range(0, 100) <= 25)
+                    {
+                        mapFinal[(10 * i) + 4, (10 * j)] = 0;
+                        mapFinal[(10 * i) + 5, (10 * j)] = 0;
+                        if (j > 0)
+                        {
+                            mapFinal[(10 * i) + 4, (10 * j) - 1] = 0;
+                            mapFinal[(10 * i) + 5, (10 * j) - 1] = 0;
+                        }
+                    }
+                    if (Random.Range(0, 100) <= 25)
+                    {
+                        mapFinal[(10 * i), (10 * j) + 4] = 0;
+                        mapFinal[(10 * i), (10 * j) + 5] = 0;
+                        if (i > 0)
+                        {
+                            mapFinal[(10 * i) - 1, (10 * j) + 4] = 0;
+                            mapFinal[(10 * i) - 1, (10 * j) + 5] = 0;
+                        }
+                    }
+                }
+                //if (map[i, j].state == 3)
+                //{
+
+                //}
             }
         }
                     //for (int i = 0; i < 100; i = i + 1)
@@ -269,6 +362,81 @@ public class DungeonGen : MonoBehaviour
         return seedCount;
     }
 
+
+    void InitInteriors()
+    {
+        interior1 = new int[8, 8] 
+        {
+        {1,1,1,0,0,1,1,1 },
+        {1,1,1,0,0,1,1,1 },
+        {1,1,1,0,0,1,1,1 },
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+        {1,1,1,0,0,1,1,1 },
+        {1,1,1,0,0,1,1,1 },
+        {1,1,1,0,0,1,1,1 },
+        };
+        
+        interior2 = new int[8, 8]
+       {
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+        {0,0,1,0,0,1,0,0 },
+        {0,0,1,0,0,1,0,0 },
+        {0,0,1,0,0,1,0,0 },
+        {0,0,1,0,0,1,0,0 },
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+       };
+
+        interior3 = new int[8, 8]
+        {
+        {1,1,0,0,0,0,1,1 },
+        {1,1,0,0,0,0,1,1 },
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,1,1,0,0,0 },
+        {0,0,0,1,1,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+        {1,1,0,0,0,0,1,1 },
+        {1,1,0,0,0,0,1,1 },
+         };
+        interior4 = new int[8, 8]
+        {
+        {0,0,0,0,0,0,0,0 },
+        {0,1,1,0,0,1,1,0 },
+        {0,1,0,0,0,0,1,0 },
+        {0,0,0,1,1,0,0,0 },
+        {0,0,0,1,1,0,0,0 },
+        {0,1,0,0,0,0,1,0 },
+        {0,1,1,0,0,1,1,0 },
+        {0,0,0,0,0,0,0,0 },
+        };
+        interior5 = new int[8, 8]
+        {
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+        {0,0,1,1,1,1,0,0 },
+        {0,0,1,1,1,1,0,0 },
+        {0,0,1,1,1,1,0,0 },
+        {0,0,1,1,1,1,0,0 },
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+         };
+
+        interior6 = new int[8, 8]
+{
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,1,0,0,0,0 },
+        {0,0,0,0,0,0,1,0 },
+        {0,0,1,0,0,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+        {0,0,0,0,1,0,0,0 },
+        {0,0,1,0,0,0,0,0 },
+        {0,0,0,0,0,0,0,0 },
+ };
+
+
+    }
     //void PickSeed()
     //{
     //    //Random.InitState(mSeed);
