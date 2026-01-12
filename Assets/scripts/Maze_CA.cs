@@ -20,7 +20,8 @@ public class Maze_CA : MonoBehaviour
    
     public void MazeAwake(int seed)
     {
-        mSeed = seed;
+        if (seed == 0) { mSeed = 1; }
+        else { mSeed = seed; }
         Random.InitState(mSeed);
         map = new Cell[51,51];
         mapFinal = new int[102, 102];

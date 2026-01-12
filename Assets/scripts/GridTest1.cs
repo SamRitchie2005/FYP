@@ -20,6 +20,7 @@ public class GridTest1 : MonoBehaviour
     [SerializeField] Tile tileWaterShallow;
     [SerializeField] Tile tileSand;
     [SerializeField] int seed;
+    [SerializeField] SeedContainer seedContainer;
     [SerializeField] GameObject enemy;
     [SerializeField] NavMeshSurface surface;
     [SerializeField] int enemyAmount;
@@ -32,6 +33,8 @@ public class GridTest1 : MonoBehaviour
 
     private void Awake()
     {
+        seedContainer = FindAnyObjectByType<SeedContainer>();
+        seed = seedContainer.MainSeed;
         mapArray = new int[300,300];
         tCollider = tilemapWall.GetComponent<TilemapCollider2D>();
         for (int i = 0; i < 300; i++)
