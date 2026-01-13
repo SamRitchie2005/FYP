@@ -918,6 +918,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &886784675
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 886784677}
+  - component: {fileID: 886784676}
+  m_Layer: 0
+  m_Name: Ui
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &886784676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886784675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 3382fc29bd64e5e40b994099e8088ec7, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 98ed2aca604aec54ba31dfe4d057c178, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
+--- !u!4 &886784677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886784675}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 177.99911, y: 81.33375, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1303931679
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,6 +1033,7 @@ GameObject:
   - component: {fileID: 1436118681}
   - component: {fileID: 1436118683}
   - component: {fileID: 1436118684}
+  - component: {fileID: 1436118685}
   m_Layer: 8
   m_Name: player
   m_TagString: Player
@@ -1112,6 +1168,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 56651d82-d63b-4f5d-a0ea-ba1005898768
     m_ActionName: 'Player/New action[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1436118681}
+        m_TargetAssemblyTypeName: PlayerMove, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d36b4f6a-f149-41f9-98e0-5952ca83d7e4
+    m_ActionName: 'Player/Dash[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1142,7 +1214,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1436118684
 BoxCollider2D:
@@ -1190,6 +1262,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1436118685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436118678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c568c3815e77546b6ad79f61d6036d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
+  UI: {fileID: 886784676}
+  Hp: 100
 --- !u!1 &1653943450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1313,9 @@ MonoBehaviour:
   tileWaterShallow: {fileID: 11400000, guid: f48147354728869498416458da277003, type: 2}
   tileSand: {fileID: 11400000, guid: 5d803209c1e58af4a8103666adfc6428, type: 2}
   seed: 11636
+  seedContainer: {fileID: 0}
   enemy: {fileID: 3000461347171854502, guid: 37dad8b14d8cdaa458c74aea752b1381, type: 3}
+  saw: {fileID: 4719232899921220981, guid: 4ba11072cea96474997030a7c5566a16, type: 3}
   surface: {fileID: 2031584681}
   enemyAmount: 100
   automatonLoops: 30
@@ -1338,3 +1426,4 @@ SceneRoots:
   - {fileID: 1653943452}
   - {fileID: 458327063}
   - {fileID: 2031584679}
+  - {fileID: 886784677}

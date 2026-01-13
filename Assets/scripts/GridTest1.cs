@@ -1,12 +1,14 @@
+using NavMeshPlus.Components;
+using NavMeshPlus.Extensions;
 using TreeEditor;
+using Unity.Mathematics;
+using UnityEditor.U2D.Aseprite;
 //using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
-using NavMeshPlus.Components;
-using NavMeshPlus.Extensions;
 using UnityEngine.UI;
-using Unity.Mathematics;
+using static UnityEditor.PlayerSettings;
 
 
 public class GridTest1 : MonoBehaviour
@@ -22,6 +24,7 @@ public class GridTest1 : MonoBehaviour
     [SerializeField] int seed;
     [SerializeField] SeedContainer seedContainer;
     [SerializeField] GameObject enemy;
+    [SerializeField] GameObject saw;
     [SerializeField] NavMeshSurface surface;
     [SerializeField] int enemyAmount;
     TilemapCollider2D tCollider;
@@ -33,8 +36,12 @@ public class GridTest1 : MonoBehaviour
 
     private void Awake()
     {
-        seedContainer = FindAnyObjectByType<SeedContainer>();
-        seed = seedContainer.MainSeed;
+        if (FindAnyObjectByType<SeedContainer>() != null)
+        {
+            seedContainer = FindAnyObjectByType<SeedContainer>();
+            seed = seedContainer.MainSeed;
+        }
+        
         mapArray = new int[300,300];
         tCollider = tilemapWall.GetComponent<TilemapCollider2D>();
         for (int i = 0; i < 300; i++)
@@ -102,8 +109,19 @@ public class GridTest1 : MonoBehaviour
                 enemyAmount--;
             }
         }
-
-       // baketest();
+        for (int i = 0; i < 300; i++)
+        {
+            for (int j = 0; j < 300; j++)
+            {
+                if(mapArray[i, j] == 9)
+                {
+                    Vector3Int mapPos = new Vector3Int(i, j);
+                    Vector3 v = tilemapFloor.CellToWorld(mapPos);
+                    quaternion c = new quaternion(0, 0, 0, 0);
+                    Instantiate(saw, v, c);
+                }
+            }
+        }
     }
 
     void Start()
@@ -230,6 +248,10 @@ public class GridTest1 : MonoBehaviour
                 else if (mapArray[i, j] == 4)
                 {
                     tilemapFloor.SetTile(pos, tileSand);
+                }
+                else if (mapArray[i, j] == 9)
+                {
+                    tilemapFloor.SetTile(pos, tileFloor);
                 }
             }
         }
