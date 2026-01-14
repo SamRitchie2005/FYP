@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 
 
@@ -21,16 +22,20 @@ public class GridTest1 : MonoBehaviour
     [SerializeField] Tile tileWater;
     [SerializeField] Tile tileWaterShallow;
     [SerializeField] Tile tileSand;
+    [SerializeField] Tile tileGrass;
     [SerializeField] int seed;
     [SerializeField] SeedContainer seedContainer;
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject saw;
+    [SerializeField] GameObject star;
     [SerializeField] NavMeshSurface surface;
     [SerializeField] int enemyAmount;
     TilemapCollider2D tCollider;
     [SerializeField] int automatonLoops;
     [SerializeField] Maze_CA maze;
     [SerializeField] DungeonGen dungeon;
+    [SerializeField] UIDocument UI;
+    Label seedLabel;
     int neighbourLive;
     int[,] mapArray;
 
@@ -52,7 +57,7 @@ public class GridTest1 : MonoBehaviour
                // pos = new Vector3Int(i, j, 0);
 
                 // int flip = Random.Range(0, 2);
-                if (flip > 0.4f && flip <= 0.7f)
+                if (flip > 0.65f && flip <= 0.7f)
                 {
                     //tilemapFloor.SetTile(pos, tileFloor);
                     mapArray[i,j] = 0;
@@ -62,17 +67,21 @@ public class GridTest1 : MonoBehaviour
                     //tilemapWall.SetTile(pos, tileWall);
                     mapArray[i, j] = 1;
                 }
-                else if(/*flip >= 0f &&*/ flip <= 0.2f)
+                else if(/*flip >= 0f &&*/ flip <= 0.15f)
                 {
                     mapArray[i, j] = 2;
                 }
-                else if(flip > 0.2f &&flip <= 0.3f)
+                else if(flip > 0.15f &&flip <= 0.25f)
                 {
                     mapArray[i, j] = 3;
                 }
-                else if (flip > 0.3f && flip <= 0.4f)
+                else if (flip > 0.25f && flip <= 0.35f)
                 {
                     mapArray[i, j] = 4;
+                }
+                else if (flip > 0.35f && flip <= 0.65f)
+                {
+                    mapArray[i, j] = 5;
                 }
                 //for (int k = 0; k < automatonLoops; k++)
                 //{
@@ -115,14 +124,24 @@ public class GridTest1 : MonoBehaviour
             {
                 if(mapArray[i, j] == 9)
                 {
-                    Vector3Int mapPos = new Vector3Int(i, j);
-                    Vector3 v = tilemapFloor.CellToWorld(mapPos);
+                    Vector3Int mapPos = new Vector3Int(2*i+1, 2*j+1);
+                    Vector3 v = tilemapFloor.CellToWorld(mapPos)/2;
                     quaternion c = new quaternion(0, 0, 0, 0);
                     Instantiate(saw, v, c);
                 }
+                if (mapArray[i, j] == 8)
+                {
+                    Vector3Int mapPos = new Vector3Int(2 * i + 2, 2 * j + 2);
+                    Vector3 v = tilemapFloor.CellToWorld(mapPos) / 2;
+                    quaternion c = new quaternion(0, 0, 0, 0);
+                    Instantiate(star, v, c);
+                }
             }
         }
-    }
+        var root = UI.rootVisualElement;
+        seedLabel = root.Q<Label>("SeedLabel");
+        seedLabel.text = "Seed:"+ seed.ToString();
+        }
 
     void Start()
     {
@@ -249,7 +268,15 @@ public class GridTest1 : MonoBehaviour
                 {
                     tilemapFloor.SetTile(pos, tileSand);
                 }
+                else if (mapArray[i, j] == 5)
+                {
+                    tilemapFloor.SetTile(pos, tileGrass);
+                }
                 else if (mapArray[i, j] == 9)
+                {
+                    tilemapFloor.SetTile(pos, tileFloor);
+                }
+                else if (mapArray[i, j] == 8)
                 {
                     tilemapFloor.SetTile(pos, tileFloor);
                 }
@@ -269,6 +296,7 @@ public class GridTest1 : MonoBehaviour
     }
     void DrawDungeon()
     {
+        dungeon.mapFinal[55, 55] = 8;
         for (int i = 0; i < 100; i++)
         {
             for (int j = 0; j < 100; j++)
@@ -279,6 +307,7 @@ public class GridTest1 : MonoBehaviour
                 }
             }
         }
+        
     }
 
 

@@ -77,6 +77,7 @@ public class Maze_CA : MonoBehaviour
             for (int j = 46; j < 56; j++)
             {
                 mapFinal[i, j] = 0;
+                if (i == 50 && j == 50) { mapFinal[i, j] = 8; }
             }
         }
     }

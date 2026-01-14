@@ -5,8 +5,9 @@ public class Enemy : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     NavMeshAgent agent;
+    int Health = 100;
     //CircleCollider2D circleCollider;
-    [SerializeField] GameObject target;
+    [SerializeField] public GameObject target;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -14,6 +15,23 @@ public class Enemy : MonoBehaviour
         
     }
 
+    //private void OnEnable()
+    //{
+    //    Events.OnAttack += Hit;
+    //}
+    //private void OnDisable()
+    //{
+    //    Events.OnAttack -= Hit;
+    //}
+
+    public void Hit(int damage)
+    {
+        Health-=damage;
+        if (Health == 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -29,7 +47,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            target = collision.gameObject;
+            // target = collision.gameObject;
+            
         }
     }
 
@@ -37,7 +56,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            target = null;
+           // target = null;
         }
     }
 }

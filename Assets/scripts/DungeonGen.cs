@@ -26,6 +26,7 @@ public class DungeonGen : MonoBehaviour
 
 
     int GlobalSeedCount;
+ 
 
     public void DungeonAwake(int seed)
     {
@@ -223,30 +224,32 @@ public class DungeonGen : MonoBehaviour
                         }
                     }
                 }
+
                 //if (map[i, j].state == 3)
                 //{
 
                 //}
             }
         }
-                    //for (int i = 0; i < 100; i = i + 1)
-                    //{
-                    //    for (int j = 0; j < 100; j = j + 1)
-                    //    {
-                    //        if (i == 1 || i == 0 || j == 1 || j == 0 || i == 101 || i == 100 || j == 101 || j == 100)
-                    //        {
-                    //            mapFinal[i, j] = 0;
-                    //        }
-                    //    }
-                    //}
-                    //for (int i = 46; i < 56; i++)
-                    //{
-                    //    for (int j = 46; j < 56; j++)
-                    //    {
-                    //        mapFinal[i, j] = 0;
-                    //    }
-                    //}
-                }
+        //for (int i = 0; i < 100; i = i + 1)
+        //{
+        //    for (int j = 0; j < 100; j = j + 1)
+        //    {
+        //        if (i == 1 || i == 0 || j == 1 || j == 0 || i == 101 || i == 100 || j == 101 || j == 100)
+        //        {
+        //            mapFinal[i, j] = 0;
+        //        }
+        //    }
+        //}
+        //for (int i = 46; i < 56; i++)
+        //{
+        //    for (int j = 46; j < 56; j++)
+        //    {
+        //        mapFinal[i, j] = 0;
+        //    }
+        //}
+        
+        }
 
     int Cycle()
     {
@@ -381,10 +384,10 @@ public class DungeonGen : MonoBehaviour
        {
         {0,0,0,0,0,0,0,0 },
         {0,0,0,0,0,0,0,0 },
+        {0,0,1,0,9,1,0,0 },
         {0,0,1,0,0,1,0,0 },
         {0,0,1,0,0,1,0,0 },
-        {0,0,1,0,0,1,0,0 },
-        {0,0,1,0,0,1,0,0 },
+        {0,0,1,9,0,1,0,0 },
         {0,0,0,0,0,0,0,0 },
         {0,0,0,0,0,0,0,0 },
        };
@@ -406,7 +409,7 @@ public class DungeonGen : MonoBehaviour
         {0,1,1,0,0,1,1,0 },
         {0,1,0,0,0,0,1,0 },
         {0,0,0,1,1,0,0,0 },
-        {0,0,0,1,1,0,0,0 },
+        {0,0,0,1,1,0,9,0 },
         {0,1,0,0,0,0,1,0 },
         {0,1,1,0,0,1,1,0 },
         {0,0,0,0,0,0,0,0 },
