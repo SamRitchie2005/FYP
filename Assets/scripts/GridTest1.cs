@@ -47,11 +47,11 @@ public class GridTest1 : MonoBehaviour
             seed = seedContainer.MainSeed;
         }
         
-        mapArray = new int[300,300];
+        mapArray = new int[320,140];
         tCollider = tilemapWall.GetComponent<TilemapCollider2D>();
-        for (int i = 0; i < 300; i++)
+        for (int i = 0; i < 320; i++)
         {
-            for (int j = 0; j < 300; j++)
+            for (int j = 0; j < 140; j++)
             {
                 float flip = Mathf.PerlinNoise(seed+i/10f+0.1f, seed+j/10f+0.1f);
                // pos = new Vector3Int(i, j, 0);
@@ -98,6 +98,7 @@ public class GridTest1 : MonoBehaviour
         dungeon.DungeonAwake(seed);
         DrawMaze();
         DrawDungeon();
+        DrawWalls();
         DrawMap();
         
         tCollider.enabled = false;
@@ -106,10 +107,10 @@ public class GridTest1 : MonoBehaviour
         while(enemyAmount>0)
         {
             
-            int posx = UnityEngine.Random.Range(0, 300);
-            int posy = UnityEngine.Random.Range(0, 300);
+            int posx = UnityEngine.Random.Range(0, 320);
+            int posy = UnityEngine.Random.Range(0, 140);
             int targetCell = mapArray[posx,posy];
-            if((targetCell==0|| targetCell == 3 || targetCell == 4)&&!(posx>=99&&posx<=201&& posy >= 99 && posy <= 201))
+            if((targetCell==0|| targetCell == 3 || targetCell == 4 || targetCell == 5) &&/*!(posx>=99&&posx<=201&& posy >= 99 && posy <= 201)*/posx<200)
             {
                 Vector3Int mapPos = new Vector3Int(posx, posy);
                 Vector3 v = tilemapFloor.CellToWorld(mapPos);
@@ -118,9 +119,9 @@ public class GridTest1 : MonoBehaviour
                 enemyAmount--;
             }
         }
-        for (int i = 0; i < 300; i++)
+        for (int i = 0; i < 320; i++)
         {
-            for (int j = 0; j < 300; j++)
+            for (int j = 0; j < 140; j++)
             {
                 if(mapArray[i, j] == 9)
                 {
@@ -241,9 +242,9 @@ public class GridTest1 : MonoBehaviour
 
     void DrawMap()
     {
-        for (int i = 0; i < 300; i++)
+        for (int i = 0; i < 320; i++)
         {
-            for (int j = 0; j < 300; j++)
+            for (int j = 0; j < 140; j++)
             {
                 pos = new Vector3Int(i, j, 0);
                 if (mapArray[i, j] == 0)
@@ -290,7 +291,7 @@ public class GridTest1 : MonoBehaviour
         {
             for (int j = 0; j < 102; j++)
             {
-                mapArray[i+99,j+99] = maze.mapFinal[i,j];
+                mapArray[i+200,j+20] = maze.mapFinal[i,j];
             }
         }
     }
@@ -303,12 +304,26 @@ public class GridTest1 : MonoBehaviour
             {
                 if (dungeon.mapFinal[i, j] != 999)
                 {
-                    mapArray[i, j] = dungeon.mapFinal[i, j];
+                    mapArray[i+10, j+20] = dungeon.mapFinal[i, j];
                 }
             }
         }
         
     }
 
+    void DrawWalls()
+    {
+        for (int i = 0; i < 320; i++)
+        {
+            for (int j = 0; j < 140; j++)
+            {
+                if (i < 10 || i >= 310 || j < 10 || j >= 130)
+                {
+                    mapArray[i, j] = 1;
+                }
+            }
+
+        }
+    }
 
 }
