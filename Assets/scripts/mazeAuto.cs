@@ -31,16 +31,25 @@ public class mazeAuto : MonoBehaviour
 
     void DrawMaze()
     {
-        for (int i = 0; i < 102; i++)
+        for (int i = 25; i < 77; i++)
         {
-            for (int j = 0; j < 102; j++)
+            for (int j = 25; j < 77; j++)
             {
+                mapArray[i + 200, j + 20] = 0;
                 mapArray[i + 200, j + 20] = maze.mapFinal[i, j];
             }
         }
     }
     void DrawMap()
     {
+        for (int i = 25; i < 77; i++)
+        {
+            for (int j = 25; j < 77; j++)
+            {
+                pos = new Vector3Int(i +200, j +20, 0);
+                tilemapWall.SetTile(pos, null);
+            }
+        }
         for (int i = 0; i < 320; i++)
         {
             for (int j = 0; j < 140; j++)
