@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/menu%20uss.uss?fileID=7433441132597879392&amp;guid=b9f5fb21c6aba2948abe1fd1ba5fffad&amp;type=3#menu uss" />
+    <ui:VisualElement style="flex-grow: 1; opacity: 1; -unity-background-image-tint-color: rgb(130, 106, 106); display: flex; visibility: visible; overflow: visible; background-image: url(&quot;project://database/Assets/textured_dark_grey_dg_foil_38.png?fileID=2800000&amp;guid=30048a7e29a61dd44bc6fb15006ec77f&amp;type=3#textured_dark_grey_dg_foil_38&quot;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+        <ui:Label text="You WIN!" style="background-color: rgba(55, 55, 55, 0); color: rgb(246, 255, 0); height: 29px; margin-top: 176px; margin-left: 134px;" />
+    </ui:VisualElement>
+</ui:UXML>

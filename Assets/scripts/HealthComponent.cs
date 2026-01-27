@@ -2,6 +2,7 @@ using Mono.Cecil.Cil;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class HealthComponent : MonoBehaviour
 {
@@ -41,11 +42,16 @@ public class HealthComponent : MonoBehaviour
     void Damage(int damage)
     {
         Hp = Hp - damage;
+        if (Hp <= 0)
+        {
+            SceneManager.LoadScene("death");
+        }
     }
 
     void StarAdd()
     {
         starNum++;
         stars.text = starNum.ToString() + "/2 stars collected";
+        if (starNum >= 2) { SceneManager.LoadScene("end"); }
     }
 }
