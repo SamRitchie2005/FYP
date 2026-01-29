@@ -16,11 +16,12 @@ public class Compass : MonoBehaviour
         document = GetComponent<UIDocument>();
         var root = document.rootVisualElement;
         compass = root.Q<VisualElement>("Compass");
+        Events.onStarEnable += StarEnable;
     }
 
     private void OnEnable()
     {
-        Events.onStarEnable += StarEnable;
+        //Events.onStarEnable += StarEnable;
     }
 
     private void OnDisable()
@@ -29,20 +30,22 @@ public class Compass : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (stars[0] != null)
+        if (stars.Count != 0)
         {
-            if (stars[1] != null)
+            if (stars[0] != null)
             {
-                if ((stars[0].transform.position - player.transform.position).magnitude < (stars[1].transform.position - player.transform.position).magnitude)
+                if (stars[1] != null)
                 {
-                    target = stars[0];
+                    if ((stars[0].transform.position - player.transform.position).magnitude < (stars[1].transform.position - player.transform.position).magnitude)
+                    {
+                        target = stars[0];
+                    }
+                    else { target = stars[1]; }
                 }
-                else { target = stars[1]; }
+                else { target = stars[0]; }
             }
-            else { target = stars[0]; }
+            else { target = stars[1]; }
         }
-        else { target = stars[1]; }
-
 
         if (target != null)
         {

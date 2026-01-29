@@ -35,6 +35,7 @@ public class ButtonHandle : MonoBehaviour
 
     void Click1()
     {
+        seed.MainSeed = -1;
         SceneManager.LoadScene("PreBuilt");
     }
     void Click2()
@@ -47,7 +48,7 @@ public class ButtonHandle : MonoBehaviour
     {
         if (int.TryParse(seedbox.value, out seedboxInt))
         {
-            seed.MainSeed = seedboxInt;
+            seed.MainSeed = Mathf.Abs(seedboxInt);
         }
         else { seed.MainSeed = 1; }
         SceneManager.LoadScene("SampleScene");

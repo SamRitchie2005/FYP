@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Star : MonoBehaviour
 {
-    private void OnEnable()
+    private void Start()
     {;
         Events.onStarEnable?.Invoke(this.gameObject);
     }
