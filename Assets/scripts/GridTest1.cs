@@ -1,15 +1,15 @@
 using NavMeshPlus.Components;
-using NavMeshPlus.Extensions;
-using TreeEditor;
+
+
 using Unity.Mathematics;
-using UnityEditor.U2D.Aseprite;
-//using Unity.AI.Navigation;
+
+
 using UnityEngine;
-using UnityEngine.AI;
+
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
+
 using UnityEngine.UIElements;
-using static UnityEditor.PlayerSettings;
+
 
 
 public class GridTest1 : MonoBehaviour
