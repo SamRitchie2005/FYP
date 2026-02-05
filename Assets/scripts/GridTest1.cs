@@ -45,6 +45,7 @@ public class GridTest1 : MonoBehaviour
         {
             seedContainer = FindAnyObjectByType<SeedContainer>();
             seed = seedContainer.MainSeed;
+            Destroy(seedContainer.gameObject);
         }
         
         mapArray = new int[320,140];

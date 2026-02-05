@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 120045429}
   - component: {fileID: 120045428}
+  - component: {fileID: 120045430}
   m_Layer: 0
   m_Name: ui
   m_TagString: Untagged
@@ -174,6 +175,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &120045430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120045427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90a698e847a4a344bfd4f59a7a0ec9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EndScreen
 --- !u!1 &1438086999
 GameObject:
   m_ObjectHideFlags: 0
