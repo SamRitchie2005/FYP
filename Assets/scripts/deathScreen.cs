@@ -6,13 +6,13 @@ public class deathScreen : MonoBehaviour
 {
     int seed;
     SeedContainer seedContainer;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+   
     void Start()
     {
         if (FindAnyObjectByType<SeedContainer>() != null)
         {
             seedContainer = FindAnyObjectByType<SeedContainer>();
-            seed = seedContainer.MainSeed;
+            seed = seedContainer.MainSeed; //gets seed from seed container
         }
         StartCoroutine(Reset());
     }
@@ -28,5 +28,5 @@ public class deathScreen : MonoBehaviour
         {
             SceneManager.LoadScene("SampleScene");
         }
-    }
+    } // waits 2 seconds and reloads scene
 }

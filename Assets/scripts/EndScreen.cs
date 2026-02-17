@@ -15,21 +15,21 @@ public class EndScreen : MonoBehaviour
         document = GetComponent<UIDocument>();
         var root = document.rootVisualElement;
         button1 = root.Q<Button>("Menu");
-        button1.clicked += Click1;
+        button1.clicked += Click1;//bind function to button click
         if (FindAnyObjectByType<SeedContainer>() != null)
         {
             seedContainer = FindAnyObjectByType<SeedContainer>();
-            Destroy(seedContainer.gameObject);
+            Destroy(seedContainer.gameObject); //removes seed container
         }
     }
 
     void Click1()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Menu"); //loads menu scene
     }
 
     private void OnDisable()
     {
-        button1.clicked -= Click1;
+        button1.clicked -= Click1; //unbinds button function
     }
 }

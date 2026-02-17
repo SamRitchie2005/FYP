@@ -23,12 +23,12 @@ public class Maze_CA : MonoBehaviour
         if (seed == 0) { mSeed = 1; }
         else { mSeed = seed; }
         Random.InitState(mSeed);
-        map = new Cell[51,51];
-        mapFinal = new int[102, 102];
+        map = new Cell[51,51]; //initialises cell connection array for cellular automata
+        mapFinal = new int[102, 102]; //initialises final maze array
         for (int i = 0; i < 51; i++)
         {
             for (int j = 0; j < 51; j++)
-            {
+            {   //initialises each cell in automaton array
                 map[i, j].state = 0;
                 map[i, j].neighbours = new int[4] { 5, 5, 5, 5 };
                 map[i, j].connectDir = 4;
@@ -38,12 +38,12 @@ public class Maze_CA : MonoBehaviour
         {
             for (int j = 0; j < 102; j++)
             {
-                mapFinal[i,j] = 1;
+                mapFinal[i,j] = 1; //initialises each cell in final array
             }
         }
-        PickSeed();
+        PickSeed();//sets seed cell in automaton array
         for (int i = 0; i < cycles; i++)
-        { GlobalSeedCount=Cycle(); }
+        { GlobalSeedCount=Cycle(); }//cycles the automaton
         for (int i = 0; i < 51; i = i + 1)
         {
             for(int j=0; j < 51; j = j + 1)
@@ -59,7 +59,7 @@ public class Maze_CA : MonoBehaviour
                 if (map[i, j].connectDir == 0) { mapFinal[(2 * i), (2 * j) + 1] = 0; }
                 if (map[i, j].connectDir == 1) { mapFinal[(2 * i) + 1, (2 * j)] = 0; }
                 if (map[i, j].connectDir == 2) { mapFinal[(2 * i), (2 * j) - 1] = 0; }
-                if (map[i, j].connectDir == 3) { mapFinal[(2 * i) - 1, (2 * j)] = 0; }
+                if (map[i, j].connectDir == 3) { mapFinal[(2 * i) - 1, (2 * j)] = 0; }//maps the completed automaton array onto the final array
             }
         }
         for (int i = 0; i < 102; i = i + 1)
@@ -68,7 +68,7 @@ public class Maze_CA : MonoBehaviour
             {
                 if(i == 1 || i == 0|| j == 1 || j == 0 || i == 101 || i == 100 || j == 101 || j == 100)
                 {
-                    mapFinal[i,j] = 0;
+                    mapFinal[i,j] = 0;//clears the outer layers of the final array
                 }
             }
         }
@@ -77,7 +77,7 @@ public class Maze_CA : MonoBehaviour
             for (int j = 46; j < 56; j++)
             {
                 mapFinal[i, j] = 0;
-                if (i == 50 && j == 50) { mapFinal[i, j] = 8; }
+                if (i == 50 && j == 50) { mapFinal[i, j] = 8; }//clears the central area of the maze and marks a star to spawn
             }
         }
     }
@@ -93,7 +93,7 @@ public class Maze_CA : MonoBehaviour
                 {
                     
                 }
-                if (map[i, j].state == 1)
+                if (map[i, j].state == 1)//if cell is in seed state
                 {
                     seedCount++;
                     int neighbourCount = 0;
@@ -105,19 +105,12 @@ public class Maze_CA : MonoBehaviour
                     else { map[i, j].neighbours[2] = 4; }
                     if (map[i - 1, j].state == 0) { map[i, j].neighbours[3] = 3; neighbourCount++; }
                     else { map[i, j].neighbours[3] = 4; }
-
+                    //check neighbouring cells for expansion candidates
                     bool dirPickBool = false;
                     int dirpick;
 
 
-                    if (Random.Range(0, 100) > 100)
-                    {
-                        if (map[i, j].neighbours[(map[i, j].connectDir + 2) % 2] != 4)
-                        {
-                            map[i, j].inviteDir = map[i, j].neighbours[(map[i, j].connectDir + 2) % 2];
-                            dirPickBool = true;
-                        }
-                    }
+                  
 
 
 
@@ -127,7 +120,7 @@ public class Maze_CA : MonoBehaviour
                         dirpick = Random.Range(0, 4);
                         if (map[i, j].neighbours[dirpick] != 4)
                         {
-                            map[i, j].inviteDir = map[i, j].neighbours[dirpick];
+                            map[i, j].inviteDir = map[i, j].neighbours[dirpick];  //assigns a random neighbour cell to invite into the network
                             dirPickBool = true;
 
 
@@ -136,11 +129,11 @@ public class Maze_CA : MonoBehaviour
                     }
                     if (neighbourCount == 0)
                     {
-                        map[i, j].state = 3;
+                        map[i, j].state = 3;//if there are no neighbours, mark cell as completed
                     }
                     else
                     {
-                        map[i, j].state = 2;
+                        map[i, j].state = 2;//if successfully found target to invite, set cell state to inviting
                     }
                 }
                 if (map[i, j].state == 2)
@@ -148,22 +141,22 @@ public class Maze_CA : MonoBehaviour
                     if (map[i, j].inviteDir == 0) { map[i, j + 1].state = 1; map[i, j + 1].connectDir = 2; }
                     if (map[i, j].inviteDir == 1) { map[i + 1, j].state = 1; map[i + 1, j].connectDir = 3; }
                     if (map[i, j].inviteDir == 2) { map[i, j - 1].state = 1; map[i, j - 1].connectDir = 0; }
-                    if (map[i, j].inviteDir == 3) { map[i - 1, j].state = 1; map[i - 1, j].connectDir = 1; }
+                    if (map[i, j].inviteDir == 3) { map[i - 1, j].state = 1; map[i - 1, j].connectDir = 1; } //connects ivited cell into network in seed state
 
 
 
                     if (Random.Range(0, 100) > 5)
                     {
-                        map[i, j].state = 3;
+                        map[i, j].state = 3;//once the target is connected there is a 95% chance the cell is marked as completed
                     }
-                    else { map[i, j].state = 1; }
+                    else { map[i, j].state = 1; } //5% chance of returning to seed state, used for branching paths
                 }
-                if (map[i, j].state == 3)
+                if (map[i, j].state == 3)//cell is in completion state
                 {
  
                     bool isValid = false;
 
-                    if(seedCount ==0)
+                    if(seedCount ==0)//until all cells in the automaton array are connected, set a random valid completed cell to a seed cell
                     {
                         for(int k = 0; k < 4; k++)
                         {
@@ -184,7 +177,7 @@ public class Maze_CA : MonoBehaviour
         return seedCount;
     }
 
-    void PickSeed()
+    void PickSeed()//picks a random cell in the automaton arry to set as the seed
     {
         Random.InitState(mSeed);
       

@@ -11,7 +11,7 @@ public class Swordhit : MonoBehaviour
             {
                 enemy.Hit(50);
             }
-            //Events.OnAttack?.Invoke(50);
+           
         }
     }
 }

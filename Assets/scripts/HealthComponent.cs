@@ -19,15 +19,15 @@ public class HealthComponent : MonoBehaviour
         stars = root.Q<Label>("starLabel");
         var Bar = root.Q(className: "unity-progress-bar__progress");
         Bar.style.backgroundColor = Color.red;
-        stars.text = starNum.ToString() + "/2 stars collected";
+        stars.text = starNum.ToString() + "/2 stars collected"; //set ui elements
     }
 
-    private void OnEnable()
+    private void OnEnable() //bind events
     {
         Events.OnDamage += Damage;
         Events.OnStar += StarAdd;
     }
-    private void OnDisable()
+    private void OnDisable()//unbind events
     {
         Events.OnDamage -= Damage;
         Events.OnStar -= StarAdd;
@@ -35,10 +35,10 @@ public class HealthComponent : MonoBehaviour
 
     void Update()
     {
-        hpBar.value = Hp;
+        hpBar.value = Hp; //update health bar
     }
 
-    void Damage(int damage)
+    void Damage(int damage) //handle damage
     {
         Hp = Hp - damage;
         if (Hp <= 0)
@@ -47,7 +47,7 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
-    void StarAdd()
+    void StarAdd() //handle star pickups
     {
         starNum++;
         stars.text = starNum.ToString() + "/2 stars collected";

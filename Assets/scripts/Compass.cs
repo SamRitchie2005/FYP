@@ -15,18 +15,14 @@ public class Compass : MonoBehaviour
     {
         document = GetComponent<UIDocument>();
         var root = document.rootVisualElement;
-        compass = root.Q<VisualElement>("Compass");
-        Events.onStarEnable += StarEnable;
+        compass = root.Q<VisualElement>("Compass"); //assigns compass visual element
+        Events.onStarEnable += StarEnable; //binds event to function
     }
 
-    private void OnEnable()
-    {
-        //Events.onStarEnable += StarEnable;
-    }
 
     private void OnDisable()
     {
-        Events.onStarEnable -= StarEnable;
+        Events.onStarEnable -= StarEnable; //unbinds event to function
     }
     private void FixedUpdate()
     {
@@ -45,20 +41,19 @@ public class Compass : MonoBehaviour
                 else { target = stars[0]; }
             }
             else { target = stars[1]; }
-        }
+        } //sets the target as the closest star in the target list
 
         if (target != null)
         {
 
             angle = Vector3.SignedAngle(Vector3.right, (target.transform.position - player.transform.position), Vector3.back);
             compass.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
-        }
-        
+        }         //points compass visual element towards target
     }
 
     void StarEnable(GameObject star)
     {
         stars.Add(star);
-        target = stars[0];
+        target = stars[0]; //sets up compass targets in a list
     }
 }

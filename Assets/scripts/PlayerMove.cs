@@ -48,7 +48,7 @@ public class PlayerMove : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
-        //speed = 50f;
+        
         if (canDash && context.started)
         {
             StartCoroutine(Dash());
@@ -82,15 +82,13 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator Dash()
     {
-       // if (speed == 5f)
-       // {
+  
             speed = 25f;
             yield return new WaitForSeconds(.2f);
-     //   }
-    //    else {
+  
             speed = 5f;
             yield return null;
-     //   }
+   
     }
 
     IEnumerator DashCooldown()

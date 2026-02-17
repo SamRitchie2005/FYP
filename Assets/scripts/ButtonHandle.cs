@@ -23,25 +23,25 @@ public class ButtonHandle : MonoBehaviour
         seedbox = root.Q<TextField>();
         button1.clicked += Click1;
         button2.clicked += Click2;
-        button3.clicked += Click3;
+        button3.clicked += Click3; //assigns functions to buttons in menu ui
     }
 
     private void OnDisable()
     {
         button1.clicked -= Click1;
         button2.clicked -= Click2;
-        button3.clicked -= Click3;
+        button3.clicked -= Click3; //unassigns functions to buttons in menu ui
     }
 
     void Click1()
     {
         seed.MainSeed = -1;
-        SceneManager.LoadScene("PreBuilt");
+        SceneManager.LoadScene("PreBuilt"); //loads the prebuilt level and nullifies the seed in the seed continer
     }
     void Click2()
     {
         seed.MainSeed = Random.Range(0, 1000000);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("ProcGen"); //loads the procedurally generated level and sets a random seed in the seed container
        
     }
     void Click3()
@@ -51,7 +51,7 @@ public class ButtonHandle : MonoBehaviour
             seed.MainSeed = Mathf.Abs(seedboxInt);
         }
         else { seed.MainSeed = 1; }
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("ProcGen"); ////loads the procedurally generated level and sets the seed in the seed container to a player inputted seed
     }
 
 }
