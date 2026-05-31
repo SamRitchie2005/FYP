@@ -160,7 +160,7 @@ public class DungeonGen : MonoBehaviour
                         }
                     }
                 }
-                if (Random.Range(0, 100) <= 45) //creates random doors between rooms
+                if (map[i, j].state != 0&&Random.Range(0, 100) <= 45) //creates random doors between rooms
                 {
                     if (Random.Range(0, 100) <= 25)
                     {

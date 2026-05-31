@@ -947,7 +947,7 @@ MonoBehaviour:
   saw: {fileID: 4719232899921220981, guid: 4ba11072cea96474997030a7c5566a16, type: 3}
   star: {fileID: 4719232899921220981, guid: b17a9ab3fb0434947a1be6ef07e90b39, type: 3}
   surface: {fileID: 2031584681}
-  enemyAmount: 100
+  enemyAmount: 50
   automatonLoops: 30
   maze: {fileID: 458327062}
   dungeon: {fileID: 458327064}
