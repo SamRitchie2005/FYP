@@ -219,6 +219,17 @@ public class GridTest1 : MonoBehaviour
     void DrawDungeon()
     {
         dungeon.mapFinal[55, 55] = 8;
+        for (int i = 52; i < 58; i++)
+        {
+            for (int j = 52; j < 58; j++)
+            {
+                if(i==55&& j == 55)
+                {
+                    continue;
+                }
+                dungeon.mapFinal[i, j] = 0;
+            }
+        }
         for (int i = 0; i < 100; i++)
         {
             for (int j = 0; j < 100; j++)

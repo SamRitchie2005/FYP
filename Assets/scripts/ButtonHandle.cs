@@ -17,18 +17,18 @@ public class ButtonHandle : MonoBehaviour
     void OnEnable()
     {
         var root = document.rootVisualElement; 
-        button1 = root.Q<Button>("Button1");
+        //button1 = root.Q<Button>("Button1");
         button2 = root.Q<Button>("Button2");
         button3 = root.Q<Button>("Button3");
         seedbox = root.Q<TextField>();
-        button1.clicked += Click1;
+        //button1.clicked += Click1;
         button2.clicked += Click2;
         button3.clicked += Click3; //assigns functions to buttons in menu ui
     }
 
     private void OnDisable()
     {
-        button1.clicked -= Click1;
+        //button1.clicked -= Click1;
         button2.clicked -= Click2;
         button3.clicked -= Click3; //unassigns functions to buttons in menu ui
     }
