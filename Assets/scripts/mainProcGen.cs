@@ -2,7 +2,7 @@ using NavMeshPlus.Components;
 
 
 using Unity.Mathematics;
-
+using UnityEngine.SceneManagement;
 
 using UnityEngine;
 
@@ -213,9 +213,27 @@ public class GridTest1 : MonoBehaviour
         {
             for (int j = 0; j < 102; j++)
             {
-                mapArray[i+200,j+20] = maze.mapFinal[i,j]; //maps maze array onto main array
+                mapArray[i + 200, j + 20] = maze.mapFinal[i, j]; //maps maze array onto main array
             }
         }
+        int mazeChecker = 0;
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                if(maze.mapFinal[i + 20, j + 20] == 0)
+                {
+                    mazeChecker++;
+                }
+            }
+        }
+        if(mazeChecker == 100)
+        {
+            
+            seedContainer.MainSeed = seedContainer.MainSeed + 1;
+            SceneManager.LoadScene("ProcGen");
+        }
+        Debug.Log("checsk"+mazeChecker);
     }
     void DrawDungeon()
     {
