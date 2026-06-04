@@ -112,7 +112,8 @@ public class GridTest1 : MonoBehaviour
             int posx = UnityEngine.Random.Range(0, 320);
             int posy = UnityEngine.Random.Range(0, 140);
             int targetCell = mapArray[posx,posy];
-            if((targetCell==0|| targetCell == 3 || targetCell == 4 || targetCell == 5) &&posx<200)
+            bool closeToPlayer = (math.abs(posx-150)<10 && math.abs(posy-70)<10); 
+            if ((targetCell==0|| targetCell == 3 || targetCell == 4 || targetCell == 5) &&(posx<200) && !closeToPlayer )
             {
                 Vector3Int mapPos = new Vector3Int(posx, posy);
                 Vector3 v = tilemapFloor.CellToWorld(mapPos);
